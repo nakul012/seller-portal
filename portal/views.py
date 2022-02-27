@@ -18,9 +18,10 @@ class GetItemView(APIView):
         platform_id = params.get("platform_id")
         if not platform_id:
             return Response({"error": "No platform id provided"}, status=400)
-        platform = get_object_or_404(Platform, pk=platform_id)
+        # platform = get_object_or_404(Platform, pk=platform_id)
 
-        order_item = OrderItem.objects.values('item').annotate(max_item=Max('item__platform')).order_by()
+        return OrderItem.objects.filter(item__platform__id=platform_id).values('item').annotate(max_item=Max('item'))
+
 
 
 

@@ -2,8 +2,6 @@ from rest_framework import serializers
 from portal.models import *
 
 
-
-
 class UserSerializer(serializers.ModelSerializer):
 
     class Meta:

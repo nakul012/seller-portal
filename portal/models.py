@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib import admin
-from django.db.models import Count
+from django.db.models import Count, Max
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser
 
@@ -21,9 +21,6 @@ class Seller(models.Model):
 
     
 
-class OrderItem(models.Model):
-    item = models.ForeignKey(Item, on_delete=models.CASCADE)
-    order_date = models.DateField()
 
 
 class Platform(models.Model):
@@ -32,7 +29,7 @@ class Platform(models.Model):
 
     def max_item(self):
 
-    order_item = OrderItem.objects.values('item').annotate(max_item=Max('item__platform')).order_by()
+        order_item = OrderItem.objects.values('item').annotate(max_item=Max('item__platform')).order_by()
 
 
 class Item(models.Model):
@@ -43,6 +40,10 @@ class Item(models.Model):
     platform = models.ManyToManyField(Platform)
     stock = models.IntegerField(default=0)
     
+class OrderItem(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE)
+    order_date = models.DateField()
+
 
 
     
