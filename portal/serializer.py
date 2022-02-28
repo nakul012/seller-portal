@@ -32,6 +32,8 @@ class ItemSerializer(serializers.ModelSerializer):
         model = Item
         fields = '__all__'
 
+        #depth=2
+
 
 
 class OrderItemSerializer(serializers.ModelSerializer):

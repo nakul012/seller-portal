@@ -22,14 +22,9 @@ class Seller(models.Model):
     
 
 
-
 class Platform(models.Model):
     name = models.CharField(max_length=64)
     url  = models.URLField(max_length = 200)
-
-    def max_item(self):
-
-        order_item = OrderItem.objects.values('item').annotate(max_item=Max('item__platform')).order_by()
 
 
 class Item(models.Model):
@@ -43,6 +38,7 @@ class Item(models.Model):
 class OrderItem(models.Model):
     item = models.ForeignKey(Item, on_delete=models.CASCADE)
     order_date = models.DateField()
+    platform = models.ForeignKey(Platform, on_delete=models.CASCADE)
 
 
 
